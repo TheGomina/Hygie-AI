@@ -1,0 +1,98 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /patient-service
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain
+    min-response-size: 2048
+
+spring:
+  application:
+    name: patient-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://mongodb:27017/hygie}
+      database: hygie
+      auto-index-creation: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600000
+      cache-null-values: false
+  redis:
+    host: ${REDIS_HOST:redis}
+    port: ${REDIS_PORT:6379}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+
+# Configuration OpenAPI
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    enabled: true
+  packages-to-scan: com.hygie.patientservice.controller
+  show-actuator: true
+
+logging:
+  level:
+    root: INFO
+    com.hygie: DEBUG
+    org.springframework.data.mongodb: INFO
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/patient-service.log
+    max-size: 10MB
+    max-history: 7
+
+app:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET,POST,PUT,DELETE,PATCH,OPTIONS
+    allowed-headers: "*"
+    max-age: 3600
+  security:
+    jwt:
+      secret: ${JWT_SECRET:TemporaryDevSecretKeyForHygieAIPlatformThatShouldBeChanged}
+      expiration: 86400000  # 24 heures en millisecondes
+  validation:
+    patient:
+      max-age: 120
+      min-age: 0
+    medication:
+      max-per-prescription: 20
+  integration:
+    pharmacy-base-url: ${PHARMACY_SERVICE_URL:http://pharmacy-service:8082/pharmacy-service}
+    doctor-base-url: ${DOCTOR_SERVICE_URL:http://doctor-service:8083/doctor-service}
+  feature-flags:
+    enable-medication-interactions: true
+    enable-bpm-eligibility: true
+    enable-risk-analysis: true

@@ -1,0 +1,27 @@
+# Règles de Développement Hygie-AI
+
+## Règles Fondamentales
+1. Éviter les constructions de flux complexes comme goto et limiter la récursivité aux cas indispensables.
+2. Toute boucle doit avoir une condition de terminaison explicite et une limite maximale d'itérations définie statiquement.
+3. Minimiser les allocations sur la heap, privilégier les allocations sur la stack et les structures de données à taille fixe.
+4. Limiter chaque fonction à une seule page écran (50 lignes maximum) pour garantir la lisibilité.
+5. Implémenter au minimum deux assertions par fonction pour vérifier les préconditions et postconditions.
+6. Déclarer les variables au plus près de leur utilisation et dans le bloc le plus petit possible.
+7. Vérifier toutes les valeurs de retour des fonctions non-void ou les transformer explicitement en void.
+8. Limiter l'usage du préprocesseur aux cas indispensables, privilégier les mécanismes natifs du langage.
+9. Limiter l'utilisation des pointeurs à un seul niveau de déréférencement et éviter les pointeurs de fonction.
+10. Compiler avec le niveau d'avertissement le plus élevé et traiter tous les warnings comme des erreurs.
+
+## Règles Complémentaires
+11. Utiliser const/final/readonly par défaut pour toutes les variables et privilégier les structures de données immutables.
+12. Maintenir un taux de couverture minimum de 85% avec des tests pertinents validant les cas nominaux et limites.
+13. Documenter toutes les fonctions et classes avec commentaires standardisés (description, paramètres, retour, exceptions, exemples).
+14. Implémenter un système cohérent de gestion des exceptions avec hiérarchie claire et journalisation appropriée.
+15. Isoler les dépendances externes (APIs LLM, bases médicamenteuses) derrière des interfaces clairement définies.
+
+## Règles Spécifiques aux LLM et Contexte Médical
+16. Tout algorithme impactant des décisions médicales doit être validé par une double revue technique et clinique.
+17. Chaque recommandation médicale générée doit être associée à ses sources et son niveau de confiance.
+18. Implémenter le principe de minimisation des données et le chiffrement systématique des données sensibles.
+19. Maintenir une traçabilité complète des versions des modèles LLM utilisés et de leurs paramètres.
+20. Implémenter des tests systématiques pour détecter et corriger les biais potentiels dans les recommandations.

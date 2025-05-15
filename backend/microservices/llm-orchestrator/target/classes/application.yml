@@ -1,0 +1,153 @@
+spring:
+  application:
+    name: llm-orchestrator
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/hygie}
+      auto-index-creation: true
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: 6379
+    timeout: 2000ms
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI:http://localhost:8180/auth/realms/hygie}
+  webflux:
+    base-path: /api/llm
+
+server:
+  port: 8080
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: never
+    include-exception: false
+
+# Configuration spécifique à l'orchestration des LLMs
+llm:
+  service:
+    timeout: ${LLM_SERVICE_TIMEOUT:30000}
+    retry:
+      max-attempts: 3
+      backoff:
+        initial-interval: 1000
+        multiplier: 2.0
+        max-interval: 10000
+  models:
+    endpoints:
+      biomistral: ${BIOMISTRAL_ENDPOINT:http://localhost:8090}
+      hippomistral: ${HIPPOMISTRAL_ENDPOINT:http://localhost:8091}
+      medfound: ${MEDFOUND_ENDPOINT:http://localhost:8092}
+    fallback-strategy: sequential
+    load-balancing: round-robin
+  cache:
+    enabled: true
+    ttl: 3600  # En secondes
+    max-size: 1000
+  prompt-engineering:
+    templates-path: classpath:prompts/
+    context-window-size: 16384
+  validation:
+    enabled: true
+    confidence-threshold: 0.75
+    source-validation: true
+
+# Configuration pour le monitoring et l'observabilité
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics,loggers
+  endpoint:
+    health:
+      show-details: when_authorized
+      probes:
+        enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0
+
+# Configuration des logs structurés
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} [%X{traceId},%X{spanId}] - %msg %n"
+  level:
+    root: ${LOG_LEVEL:INFO}
+    com.hygie: ${LOG_LEVEL:INFO}
+    org.springframework.data.mongodb: WARN
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+
+# Configuration de résilience
+resilience4j:
+  circuitbreaker:
+    instances:
+      llmService:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 30000
+        failureRateThreshold: 50
+  retry:
+    instances:
+      llmService:
+        maxRetryAttempts: 3
+        waitDuration: 1000
+  timelimiter:
+    instances:
+      llmService:
+        timeoutDuration: 30s
+        cancelRunningFuture: true
+
+# Configurations spécifiques aux environnements
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hygie-dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/hygie-test
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER_URI}
+
+logging:
+  level:
+    root: WARN
+    com.hygie: INFO

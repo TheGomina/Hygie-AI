@@ -1,0 +1,13 @@
+# Ignore virtual environment
+.venv/
+# Node modules
+node_modules/
+# Python cache files
+__pycache__/
+*.pyc
+*.py[cod]
+.env
+.env.*
+.vscode/
+.windsurf/
+**/.git

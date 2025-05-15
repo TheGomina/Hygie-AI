@@ -1,0 +1,152 @@
+Médicaments rangés par classe thérapeutique et score selon les 2 échelles  :;;;;;;;;;
+;;;;;;;;;
+;CIA;;;;;ACB (toutes les molécules non commercialisées à ce jour sur le marché français ont été retirées de ce tableau);;;
+;Classe thérapeutique ;Score CIA = 1 ;Score CIA = 2;Score CIA = 3;;Classe thérapeutique ;Score ACB = 1 ;Score ACB = 2;Score ACB = 3
+;Analgésique ;"Codeine
+Fentanyl
+Morphine
+Oxycodone
+Tramadol";Phetidine;;;Analgésique ;"Codeine
+Fentanyl
+Morphine";;
+;Antiarythmique;"Digoxine
+Isosorbide";Disopyramide;;;Antiarythmique;"Digoxine
+Disopyramide
+Isosorbide";;
+;Antiashmatique;Theophylline;;Ipratropium;;Antiashmatique;Theophylline;;
+;Antibactérien;"Ampicilline
+Cefoxitine
+Clindamycine
+Gemtamicine
+Piperacilline
+Vancomycine";;;;Antibactérien;/;/;/
+;Anticoagulant;Warfarine;;;;Anticoagulant;Warfarine;;
+;Antidépresseur;"Bupropion
+Citalopram
+Duloxetine
+Fluoxetine
+Fluvoxamine
+Mirtazapine
+Phenelzine
+Sertraline
+Trazodone";"Dosulepine
+Paroxetine";"Amitriptyline
+Amoxapine
+Clomipramine
+Doxepine
+Imipramine
+Maprotiline
+Nortriptyline
+Trimipramine";;Antidépresseur;"Bupropion
+Fluvoxamine
+Trazodone";;"Amitriptyline
+Amoxapine
+Clomipramine
+Doxepine
+Imipramine
+Nortriptyline
+Paroxetine
+Trimipramine"
+;Antiépileptique;"Acide valproique
+Clonazepam";"Carbamazepine
+Oxcarbazepine";;;Antiépileptique;;"Carbamazepine
+Oxcarbazepine";
+;Antigoutteux;Colchicine;;;;Antigoutteux;Colchicine;;
+;Antihistaminique ;Alimemazine;"Cetirizine
+Doxylamine
+Fexofenadine
+Loratadine
+Triprolidine";"Brompheniramine
+Chlorpheniramine
+Cyproheptadine
+Desloratadine
+Dexchlorpheniramine
+Dephenhydramine
+Hydroxyzine
+Mequitazine
+Prochlorperazine";;Antihistaminique ;"Alimemazine
+Brompherniramine maleate";"Cyproheptadine
+";"
+Chlorpheniramine
+Diphenhydramine
+Hydroxyzine
+Promethazine"
+;Antinauséeux;;;Dimenhydrate;;Antinauséeux;;;Dimenhydrate
+;Antipaludéen;Quinidine;;;;Antipaludéen;Quinidine;;
+;Antiparkinsonien;"Bromocriptine
+Carbidopa
+Entacapone
+Levodopa
+Pramipexole
+Selegiline";Amantadine;"Biperidene
+Trihexyphenidyle
+Tropatepine";;Antiparkinsonien;;Amantadine;Trihexyphenidyle
+;Antipsychotique ;"Haloperidol
+Lithium
+Pipotiazine
+Propericiazine
+Risperidone";"Levomepromazine Loxapine
+Olanzapine
+Pimozide
+Quetiapine";"Chlorpromazine
+Clozapine
+Cyamemazine
+Fluphenazine
+Perphenazine";;Antipsychotique ;"Haloperidol
+Risperidone";"Levomepromazine Loxapine
+Pimozide";"Chlorpromazine
+Clozapine
+Olanzapine
+Perphenazine
+Quetiapine"
+;Antispasmodique urinaire;;;"Flavoxate
+Oxybutynine
+Solifenacine
+Tolterodine
+Trospium";;Antispasmodique urinaire;;;"Flavoxate
+Oxybutynine
+Tolterodine"
+;Antiulcéreux;Nizatidine;;;;Antithrombotique ;Dipyridamole;;
+;Anxiolytique;"Alprazolam
+Chlordiazepoxide
+Clorazepate
+Diazepam
+Lorazepam
+Oxazepam";;Hydroxyzine;;Anxiolytique;"Alprazolam
+Clorazepate
+Diazepam";;
+;Beta bloquant;"Atenolol
+Metoprolol";;;;Beta bloquant;"Atenolol
+Metoprolol";;
+;Corticoïde;"Dexamethasone
+Hydrocortisone
+Methylprednisolone
+Prednisone
+Prednisolone
+Triamcinolone";;;;Corticoïde;"Hydrocortisone
+Prednisone
+Prednisolone";;
+;Décongestionnant;;Pseudoephedrine;;;Désordres gastro-intestinaux;"Alverine
+Cimetidine
+Loperamide
+Ranitidine";;Atropine
+;Désordres gastro-intestinaux;"Alverine
+Domperidone
+Famotidine
+Metoclopramide
+Ranitidine";"Cimetidine
+Loperamide";Atropine;;Diurétique;"Furosemide
+Triamterene";;
+;Diurétique;"Furosemide
+Triamterene";;;;Diurétique thiazidique;Chlortalidone;;
+;Diurétique thiazidique;Chlortalidone;;;;IEC;Captopril;;
+;Hypnotique;"Midazolam
+Temazepam";;;;Inhibiteur calcique;Nifedipine;;
+;IEC;Captopril;;;;;;;
+;Immunosuppresseur;"Azathioprine
+Ciclosporine";;;;;;;
+;Inhibiteur calcique;"Diltiazem
+Nifedipine";;;;;;;
+;Myorelaxant;Methocarbamol;Baclofene;Tizanidine;;;;;
+;Normothymique;Divalproate de sodium;;;;;;;
+;Sevrage opiacés;;Methadone;;;;;;

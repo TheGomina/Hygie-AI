@@ -1,0 +1,1338 @@
+- id: A1
+  description: Any drug prescribed without a clinical indication.
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: A2
+  description: Any drug prescribed beyond the recommended duration, where treatment
+    duration is well defined.
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: A3
+  description: Any duplicate drug class prescription for daily regular use (as distinct
+    from PRN use) e.g., two concurrent NSAIDs, SSRIs, loop diuretics, ACE inhibitors,
+    anticoagulants, antipsychotics, opioid analgesics (optimisation of monotherapy
+    within a single drug class should be observed prior to considering a new agent).
+  substances:
+  - ACE
+  - NSAID
+  - PRN
+  - SSRI
+  enabled: true
+  phase: STOPP
+- id: B1
+  description: Digoxin for heart failure with normal systolic ventricular function
+    (no clear evidence of benefit)
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B2
+  description: Verapamil or diltiazem with NYHA Class III or IV heart failure (may
+    worsen heart failure with reduced ejection fraction i.e., HFREF).
+  substances:
+  - HFREF
+  - III
+  - NYHA
+  enabled: true
+  phase: STOPP
+- id: B3
+  description: Beta-blocker in combination with verapamil or diltiazem (risk of heart
+    block).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B4
+  description: Ventricular rate-limiting drugs i.e., beta blocker, verapamil, diltiazem,
+    digoxin with bradycardia (< 50/min), type II heart block or complete heart block
+    (risk of complete heart block, asystole).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B5
+  description: Beta-blocker as monotherapy for uncomplicated hypertension i.e., not
+    associated with angina pectoris, aortic aneurysm or other condition where beta-blocker
+    therapy is indicated (no firm evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B6
+  description: Amiodarone as first-line antiarrhythmic therapy in supraventricular
+    tachyarrhythmias (higher risk of major side-effects than beta-blockers, digoxin,
+    verapamil or diltiazem).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B7
+  description: Loop diuretic as first-line treatment for hypertension unless there
+    is concurrent heart failure requiring diuretic therapy (safer, more effective
+    alternatives available).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B8
+  description: Loop diuretic for dependent ankle oedema without clinical, biochemical
+    or radiological evidence of heart failure, liver failure, nephrotic syndrome or
+    renal failure (leg elevation and /or compression hosiery usually more appropriate).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B9
+  description: Thiazide diuretic with current significant hypokalaemia (i.e., serum
+    K+ < 3.0 mmol/l), hyponatraemia (i.e., serum Na+ < 130 mmol/l) hypercalcaemia
+    (i.e., corrected serum calcium > 2.65 mmol/l) or with a history of gout (hypokalaemia,
+    hyponatraemia, hypercalcaemia and gout can be precipitated by thiazide diuretic)
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B10
+  description: Loop diuretic for treatment of hypertension with concurrent urinary
+    incontinence (may exacerbate incontinence).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B11
+  description: Centrally-acting antihypertensives e.g., methyldopa, clonidine, moxonidine,
+    rilmenidine, guanfacine (centrally-active antihypertensives are generally less
+    well tolerated by older people than younger people)
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B12
+  description: Angiotensin-Converting Enzyme inhibitors (ACEIs) or Angiotensin Receptor
+    Blockers (ARBs) in patients with hyperkalaemia i.e., serum K > 5.5 mmol/l.
+  substances:
+  - ACEI
+  - ARB
+  enabled: true
+  phase: STOPP
+- id: B13
+  description: Aldosterone antagonists (e.g., spironolactone, eplerenone) with concurrent
+    potassium- conserving drugs (e.g., ACEI’s, ARB’s, amiloride, triamterene) without
+    monitoring of serum potassium (risk of dangerous hyperkalaemia i.e., > 6.0 mmol/l
+    – serum K should be monitored regularly, i.e., at least every 6 months).
+  substances:
+  - ACEI
+  - ARB
+  enabled: true
+  phase: STOPP
+- id: B14
+  description: Phosphodiesterase type-5 inhibitors (e.g., sildenafil, tadalafil, vardenafil)
+    in severe heart failure characterised by hypotension i.e., systolic BP < 90 mmHg,
+    or concurrent nitrate therapy for angina (risk of cardiovascular collapse).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B15
+  description: Drugs that predictably prolong the QTc interval (QTc = QT/RR) in patients
+    with known with demonstrable QTc prolongation (to >450 msec in males and >470
+    msec in females), including quinolones, macrolides, ondansetron, citalopram (doses
+    > 20 mg/day), escitalopram (doses > 10 mg/day), tricyclic antidepressants, lithium,
+    haloperidol, digoxin, class 1A antiarrhythmics, class III antiarrhythmics, tizanidine,
+    phenothiazines, astemizole, mirabegron (risk of life- threatening ventricular
+    arrhythmias).
+  substances:
+  - III
+  enabled: true
+  phase: STOPP
+- id: B16
+  description: Statins for primary cardiovascular prevention in persons aged ≥ 85
+    and established frailty with expected life expectancy likely less than 3 years
+    (lack of evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+  age_min: 85
+- id: B17
+  description: Long-term systemic i.e., non-topical NSAIDs with known history of coronary,
+    cerebral or peripheral vascular disease (increased risk of thrombosis).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: B18
+  description: Long-term antipsychotics with known history of coronary, cerebral or
+    peripheral vascular disease (increased risk of thrombosis).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B19
+  description: NSAIDs or systemic corticosteroids with heart failure requiring loop
+    diuretic therapy (risk of exacerbation of heart failure).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: B20
+  description: Antihypertensive drugs in severe symptomatic aortic stenosis (risk
+    of severe hypotension, syncope).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: B21
+  description: Digoxin as first line treatment for long-term (> 3 months) ventricular
+    rate control in atrial fibrillation (increased mortality from long-term digoxin
+    use; cardio-selective beta-blockers are generally preferable).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C1
+  description: Long-term aspirin at doses greater than 100mg per day (increased risk
+    of bleeding, no evidence for increased efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C2
+  description: Antiplatelet agents, vitamin K antagonists, direct thrombin inhibitors
+    or factor Xa inhibitors with concurrent significant risk of major bleeding, i.e.
+    uncontrolled severe hypertension, bleeding diathesis, recent non-trivial spontaneous
+    bleeding (high risk of bleeding).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C3
+  description: Aspirin plus clopidogrel as long-term secondary stroke prevention i.e.,
+    > 4 weeks, unless the patient has a coronary stent(s) inserted in the previous
+    12 months or concurrent acute coronary syndrome or has a high grade symptomatic
+    carotid arterial stenosis (no evidence of added long-term benefit over clopidogrel
+    monotherapy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C4
+  description: Antiplatelet agents in combination with vitamin K antagonist, direct
+    thrombin inhibitor or factor Xa inhibitors in patients with chronic atrial fibrillation,
+    unless there is concurrent coronary artery stent(s) inserted or angiographically
+    proven high grade (> 50%) coronary artery stenosis (no added benefit from antiplatelet
+    agents).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C5
+  description: Antiplatelet agents with vitamin K antagonist, direct thrombin inhibitor
+    or factor Xa inhibitors in patients with stable coronary, cerebrovascular or peripheral
+    arterial disease (no evidence of added benefit from dual therapy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C6
+  description: Ticlopidine in any circumstances (clopidogrel and prasugrel have similar
+    efficacy, stronger evidence and fewer side-effects).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C7
+  description: Antiplatelet agents as alternatives to vitamin K antagonists, direct
+    thrombin inhibitors or factor Xa inhibitors for stroke prevention in patients
+    with chronic atrial fibrillation (no evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C8
+  description: Vitamin K antagonist, direct thrombin inhibitor or factor Xa inhibitors
+    for first deep venous thrombosis without continuing provoking risk factors (e.g.,
+    thrombophilia) for longer than 6 months, (no proven added benefit).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C9
+  description: Vitamin K antagonist, direct thrombin inhibitor or factor Xa inhibitors
+    for first pulmonary embolus without continuing provoking risk factors (e.g., thrombophilia)
+    for longer than 12 months (no proven added benefit).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C10
+  description: Nonsteroidal anti-inflammatory drugs (NSAIDs) and vitamin K antagonist,
+    direct thrombin inhibitor or factor Xa inhibitors in combination (risk of major
+    gastrointestinal bleeding).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: C11
+  description: Vitamin K antagonist as first-line anticoagulant for atrial fibrillation,
+    unless there is concurrent metallic heart valve in-situ, moderate-to-severe mitral
+    stenosis, or eGFR < 15 mls/min./1.73m2 (direct thrombin inhibitors or factor Xa
+    inhibitors are equally efficacious and safer than vitamin K antagonists).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: C12
+  description: Selective serotonin reuptake inhibitors (SSRIs) in combination with
+    Vitamin K antagonist, direct thrombin inhibitor or factor Xa inhibitor with a
+    previous history of major haemorrhage (increased risk of bleeding due to antiplatelet
+    effects of SSRIs).
+  substances:
+  - SSRI
+  enabled: true
+  phase: STOPP
+- id: C13
+  description: Direct thrombin inhibitor (e.g., dabigatran) and diltiazem or verapamil
+    (increased risk of bleeding).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C14
+  description: Apixaban, dabigatran, edoxaban, rivaroxaban and P-glycoprotein (P-gp)
+    drug efflux pump inhibitors e.g., amiodarone, azithromycin, carvedilol, cyclosporin,
+    dronedarone, itraconazole, ketoconazole (systemic), macrolides, quinine, ranolazine,
+    tamoxifen, ticagrelor, verapamil (increased risk of bleeding).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C15
+  description: Systemic oestrogens or androgens with pervious history of venous thromboembolism
+    (increased risk of recurrent venous thromboembolism).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: C16
+  description: Aspirin for primary prevention in cardiovascular disease (no evidence
+    of benefit).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D1
+  description: TriCyclic Antidepressants (TCAs) in patients with dementia, narrow
+    angle glaucoma, cardiac conduction abnormalities, prostatism, chronic constipation,
+    recent falls, prior history of urinary retention or orthostatic hypotension (risk
+    of worsening these conditions).
+  substances:
+  - TCA
+  enabled: true
+  phase: STOPP
+- id: D2
+  description: Initiation of TriCyclic Antidepressants (TCAs) as first-line treatment
+    for major depression (higher risk of adverse drug reactions with TCAs than with
+    SSRIs or SNRIs).
+  substances:
+  - SNRI
+  - SSRI
+  - TCA
+  enabled: true
+  phase: STOPP
+- id: D3
+  description: Serotonin/noradrenaline reuptake inhibitors (SNRI’s e.g., venlafaxine,
+    duloxetine) and severe hypertension i.e., systolic blood pressure > 180 mmHg +/-
+    diastolic blood pressure > 105 mmHg (likely to make hypertension worse).
+  substances:
+  - SNRI
+  enabled: true
+  phase: STOPP
+- id: D4
+  description: Antipsychotics with moderate-marked antimuscarinic/anticholinergic
+    effects (acepromazine, chlorpromazine, clozapine, flupenthixol, fluphenzine, levomepromazine,
+    olanzapine, pipothiazine, promazine, thioridazine) with a history of lower urinary
+    tract symptoms associated with benign prostatic hyperplasia or previous urinary
+    retention (high risk of urinary retention).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D5
+  description: Antipsychotics prescribed for behavioural and psychological symptoms
+    of dementia (BPSD) an unchanged dose for > 3 months without medication review
+    (increased risk of extrapyramidal side-effects and chronic worsening of cognition,
+    increased risk of major cardiovascular morbidity and mortality).
+  substances:
+  - BPSD
+  enabled: true
+  phase: STOPP
+- id: D6
+  description: Selective serotonin re-uptake inhibitors (SSRI’s) with current or recent
+    significant hyponatraemia i.e., serum Na+ < 130 mmol/l (risk of exacerbating or
+    precipitating hyponatraemia).
+  substances:
+  - SSRI
+  enabled: true
+  phase: STOPP
+- id: D7
+  description: Selective serotonin re-uptake inhibitors (SSRI’s) with current or recent
+    significant bleeding (risk of exacerbation or recurrence of bleeding due to antiplatelet
+    effects of SSRI’s).
+  substances:
+  - SSRI
+  enabled: true
+  phase: STOPP
+- id: D8
+  description: Benzodiazepines for ≥ 4 weeks (no indication for longer treatment;
+    risk of prolonged sedation, confusion, impaired balance, falls, road traffic accidents;
+    all benzodiazepines should be withdrawn gradually if taken for more than 4 weeks
+    as there is a risk of causing a benzodiazepine withdrawal syndrome if stopped
+    abruptly).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D9
+  description: Benzodiazepines for agitated behaviour or psychotic symptoms of dementia
+    (no evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D10
+  description: Benzodiazepines for insomnia for ≥ 2 weeks (high risk of dependency,
+    increased risk of falls, fractures and road traffic accidents).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D11
+  description: Z-drugs (zolpidem, zopiclone, zaleplon) for insomnia for ≥ 2 weeks
+    (increased risk of falls, fractures).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D12
+  description: Antipsychotics (i.e., other than clozapine or quetiapine) in those
+    with parkinsonism or Dementia with Lewy Bodies (risk of severe extra-pyramidal
+    symptoms).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D13
+  description: Anticholinergic/antimuscarinic drugs (biperiden, orphenadrine, procyclidine,
+    trihexyphenidyl) to treat extra-pyramidal side-effects of antipsychotic medications
+    (risk of anticholinergic toxicity).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D14
+  description: Drugs with potent anticholinergics/antimuscarinic effects** in patients
+    with delirium or dementia (risk of exacerbation of cognitive impairment). ** Commonly
+    prescribed drugs with potent anticholinergic/ antimuscarinic effects include tricyclic
+    antidepressants (e.g., amitriptyline, doxepin, impramine, nortriptyline), antipsychotics
+    (chlorpromazine, clozapine, thioridazine), first generation antihistamines (e.g.,
+    diphenhydramine, chlorpheniramine), bladder anti-spasmodics (e.g., tolterodine,
+    oxybutynin), hyoscine, procyclidine, benzatropine, tizanidine.
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D15
+  description: Antipsychotics in patients with behavioural and psychological symptoms
+    of dementia (BPSD) for longer than 12 weeks unless BPSD symptoms are severe and
+    other non- pharmacological treatments have failed (increased risk of stroke, myocardial
+    infarction).
+  substances:
+  - BPSD
+  enabled: true
+  phase: STOPP
+- id: D16
+  description: Antipsychotics as hypnotics, unless sleep disorder is due to psychosis
+    or BPSD effects of dementia (not recommended in summary of product characteristics;
+    increased risk of confusion, hypotension, extra-pyramidal side effects, falls).
+  substances:
+  - BPSD
+  enabled: true
+  phase: STOPP
+- id: D17
+  description: Acetylcholinesterase inhibitors with a known history of persistent
+    bradycardia (< 60 beats/min.), heart block or recurrent unexplained syncope (risk
+    of cardiac conduction failure, syncope and injury).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D18
+  description: Acetylcholinesterase inhibitors with concurrent treatment with drugs
+    that induce persistent bradycardia (< 60 beats/min.) such as beta-blockers, digoxin,
+    diltiazem, verapamil (risk of cardiac conduction failure, syncope and injury).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D19
+  description: Memantine with known current or previous seizure disorder (increased
+    risk of seizures).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D20
+  description: Nootropics in dementia including Gingko Biloba, piracetam, pramiracetam,
+    phenylpiracetam, aniracetam, phosphatidylserine, modafinil, L-theanine, omega-3
+    fatty acids, panax ginseng, rhodiola, creatine (no evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D21
+  description: Phenothiazines as first-line treatment for psychosis or non-cognitive
+    symptoms of dementia, since safer and more efficacious alternatives exist (phenothiazines
+    are sedative, have significant anti-muscarinic toxicity in older people, except
+    for prochlorperazine for nausea/vomiting/vertigo, chlorpromazine for relief of
+    persistent hiccoughs and levomepromazine as an anti-emetic in palliative care).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D22
+  description: Levodopa or dopamine agonists for benign essential tremor (no evidence
+    of efficacy)
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D23
+  description: Levodopa or dopamine agonists for treatment of extrapyramidal side-effects
+    of antipsychotics or other forms of drug-induced Parkinsonism (inappropriate prescribing
+    cascade to be avoided).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D24
+  description: First-generation antihistamines as first-line treatment for allergy
+    or pruritus (safer antihistamines with fewer side-effects now widely available).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: D25
+  description: First-generation antihistamines for insomnia (high risk of side-effects,
+    Z-drugs safer and more appropriate for short-term use).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: E1
+  description: Digoxin at a long-term (i.e. more than 90 days) maintenance dose ≥
+    125μg/day if eGFR < 30 ml/min/1.73m2 (risk of digoxin toxicity if plasma levels
+    not measured).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E2
+  description: Direct thrombin inhibitors (e.g., dabigatran) if eGFR < 30 ml/min/1.73m2
+    (risk of bleeding)
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E3
+  description: Factor Xa inhibitors (e.g., rivaroxaban, apixaban, edoxaban) if eGFR
+    < 15 ml/min/1.73m2 (risk of bleeding)
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E4
+  description: NSAID’s if eGFR < 50 ml/min/1.73m2 (risk of deterioration in renal
+    function).
+  substances:
+  - GFR
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: E5
+  description: Colchicine if eGFR < 10 ml/min/1.73m2 (risk of colchicine toxicity)
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E6
+  description: Metformin if eGFR < 30 ml/min/1.73m2 (risk of lactic acidosis).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E7
+  description: Mineralocorticoid receptor antagonists (e.g. spironolactone, eplerenone)
+    if eGFR < 30 ml/min/1.73m2 (risk of dangerous hyperkalaemia).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E8
+  description: Nitrofurantoin if eGFR < 45 ml/min/1.73m2 (increased risk of nitrofurantoin
+    toxicity).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E9
+  description: Bisphosphonates if eGFR<30 ml/min/1.73m2 (increased risk of acute renal
+    failure).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: E10
+  description: Methotrexate if eGFR <30 ml/min/1.73m2 (increased risk of methotrexate
+    toxicity).
+  substances:
+  - GFR
+  enabled: true
+  phase: STOPP
+- id: F1
+  description: Prochlorperazine or metoclopramide with Parkinsonism (risk of exacerbating
+    Parkinsonian symptoms).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: F2
+  description: Proton pump inhibitor (PPI) for uncomplicated peptic ulcer disease
+    at full therapeutic dosage for > 8 weeks (dose reduction or earlier discontinuation
+    or H2 antagonist maintenance therapy usually indicated).
+  substances:
+  - PPI
+  enabled: true
+  phase: STOPP
+- id: F3
+  description: Drugs likely to cause constipation (e.g. systemic antimuscarinics,
+    oral iron, opioids, verapamil, aluminium antacids) with chronic constipation where
+    non-constipating alternatives are available (risk of exacerbation of constipation).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: F4
+  description: Oral elemental iron doses greater than 200 mg daily (e.g. ferrous fumarate>
+    600 mg/day, ferrous sulphate > 600 mg/day, ferrous gluconate> 1800 mg/day; no
+    evidence of enhanced iron absorption above these doses).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: F5
+  description: Corticosteroids with a history of peptic ulcer disease or erosive oesophagitis
+    (risk of relapse unless proton pump inhibitor is co-prescribed).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: F6
+  description: Antiplatelet or anticoagulant drugs with a history of Gastric Antral
+    Vascular Ectasia (GAVE, “watermelon stomach”) (risk of major gastrointestinal
+    bleeding).
+  substances:
+  - GAVE
+  enabled: true
+  phase: STOPP
+- id: F7
+  description: Antipsychotics with dysphagia (increased risk of aspiration pneumonia).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: F8
+  description: Megestrol acetate to increase appetite (increased risk of thrombosis
+    and death with unproven efficacy)
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: G1
+  description: Theophylline as monotherapy for COPD (safer, more effective alternative;
+    risk of adverse effects due to narrow therapeutic index).
+  substances:
+  - COPD
+  enabled: true
+  phase: STOPP
+- id: G2
+  description: Systemic corticosteroids instead of inhaled corticosteroids for maintenance
+    therapy in moderate-severe COPD (unnecessary exposure to long-term side-effects
+    of systemic corticosteroids and effective inhaled therapies are available).
+  substances:
+  - COPD
+  enabled: true
+  phase: STOPP
+- id: G3
+  description: Long-acting muscarinic antagonists (e.g., tiotropium, aclidinium, umeclidinium,
+    glycopyrronium) with a history of narrow angle glaucoma (may exacerbate glaucoma)
+    or bladder outflow obstruction (may cause urinary retention).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: G4
+  description: Benzodiazepines with acute or chronic respiratory failure i.e. pO2
+    < 8.0 kPa ± pCO2 > 6.5 kPa (risk of exacerbation of respiratory failure).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: H1
+  description: Non-steroidal anti-inflammatory drugs (NSAIDs) other than COX-2 selective
+    agents with history of peptic ulcer disease or gastrointestinal bleeding, unless
+    with concurrent PPI or H2 antagonist (risk of peptic ulcer relapse).
+  substances:
+  - COX-
+  - NSAID
+  - PPI
+  enabled: true
+  phase: STOPP
+- id: H2
+  description: NSAID’s with severe hypertension i.e., systolic blood pressure consistently
+    above 170 mmHg and/or diastolic blood pressure consistently above 100 mmHg (risk
+    of exacerbation of hypertension).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: H3
+  description: Long-term use of NSAID (>3 months) for symptom relief of osteoarthritis
+    pain where paracetamol has not been tried (simple analgesics preferable and usually
+    as effective for pain relief and safer).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: H4
+  description: Long-term corticosteroids (>3 months) as monotherapy for rheumatoid
+    arthritis (risk of systemic corticosteroid side-effects).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: H5
+  description: Corticosteroids (other than periodic intra-articular injections for
+    mono-articular pain) for osteoarthritis (risk of systemic corticosteroid side-effects).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: H6
+  description: Long-term NSAID or colchicine (>3 months) for chronic treatment of
+    gout where there is no contraindication to a xanthine-oxidase inhibitor (e.g.,
+    allopurinol, febuxostat) (xanthine- oxidase inhibitors are first choice prophylactic
+    drugs in gout).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: H7
+  description: NSAID with concurrent corticosteroids for treatment of arthritis/rheumatism
+    of any kind (increased risk of peptic ulcer disease).
+  substances:
+  - NSAID
+  enabled: true
+  phase: STOPP
+- id: H8
+  description: Oral bisphosphonates in patients with a current or recent history of
+    upper gastrointestinal disease i.e. dysphagia, oesophagitis, gastritis, duodenitis,
+    or peptic ulcer disease, or upper gastrointestinal bleeding (risk of relapse/exacerbation
+    of oesophagitis, oesophageal ulcer, oesophageal stricture).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: H9
+  description: Long-term opioids for osteoarthritis (lack of evidence of efficacy,
+    increased risk of serious side-effects).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I1
+  description: Systemic antimuscarinic drugs (e.g., oxybutynin, tolterodine, trospium)
+    with dementia or chronic cognitive impairment (risk of increased confusion, agitation).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I2
+  description: Systemic antimuscarinic drugs (e.g., oxybutynin, tolterodine, trospium)
+    with narrow-angle glaucoma (risk of acute exacerbation of glaucoma).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I3
+  description: Systemic antimuscarinic (e.g., oxybutynin, tolterodine, trospium) drugs
+    for lower urinary tract symptoms with benign prostatic hyperplasia (BPH) and high
+    post-void residual volume i.e. > 200 ml (uncertain efficacy and increased risk
+    of urinary retention in older men).
+  substances:
+  - BPH
+  enabled: true
+  phase: STOPP
+- id: I4
+  description: Systemic antimuscarinic drugs (e.g., oxybutynin, tolterodine, trospium)
+    with constipation (risk of exacerbation of constipation).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I5
+  description: Alpha-1 receptor antagonists other than silodosin (e.g., alfuzosin,
+    doxazosin, indoramin, tamsulosin, terazosin) with symptomatic orthostatic hypotension
+    or history of syncope (risk of precipitating recurrent syncope).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I6
+  description: Mirabegron in labile or severe hypertension (risk of exacerbation of
+    hypertension).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I7
+  description: Duloxetine with urinary urgency or urge incontinence (duloxetine is
+    indicated in stress incontinence but not in urinary urgency or urge incontinence).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I8
+  description: Antibiotic use in asymptomatic bacteriuria (no indication for treatment).
+    Section J. Endocrine System
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I1
+  description: Sulphonylureas with a long half-life (e.g., glibenclamide, chlorpropamide,
+    glimepiride) with type 2 diabetes mellitus (risk of prolonged hypoglycaemia).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I2
+  description: Thiazolidenediones (e.g., rosiglitazone, pioglitazone) with heart failure
+    (risk of exacerbation of heart failure).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I3
+  description: Non-selective beta-blockers in diabetes mellitus with frequent hypoglycaemic
+    episodes (risk of suppressing hypoglycaemic symptoms).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I4
+  description: Sodium glucose co-transporter (SGLT2) inhibitors (e.g., canagliflozin,
+    dapagliflozin, empagliflozin, ertugliflozin) with symptomatic hypotension (risk
+    of exacerbation of hypotension).
+  substances:
+  - SGLT
+  enabled: true
+  phase: STOPP
+- id: I5
+  description: Systemic oestrogens with a history of breast cancer (increased risk
+    of recurrence).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I6
+  description: Systemic oestrogens with a history of venous thromboembolism (increased
+    risk of recurrence).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I7
+  description: Menopausal hormone therapy (oestrogen plus progestin) with a history
+    of stenotic coronary, cerebral or peripheral arterial disease (increased risk
+    of acute arterial thrombosis).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I8
+  description: Systemic oestrogens without progestogens in patients with intact uterus
+    (risk of endometrial cancer).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: I9
+  description: Levothyroxine in subclinical hypothyroidism i.e., normal free T4, elevated
+    TSH but < 10 mU/L (no evidence of benefit, risk of iatrogenic thyrotoxicosis).
+  substances:
+  - TSH
+  enabled: true
+  phase: STOPP
+- id: I10
+  description: Vasopressin analogues (e.g., desmopressin, vasopressin) for urinary
+    incontinence or urinary frequency (risk of symptomatic hyponatraemia).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K1
+  description: Benzodiazepines in patients with recurrent falls (may cause reduced
+    sensorium, impair balance).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K2
+  description: Antipsychotic drugs in patients with recurrent falls (may cause Parkinsonism).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K3
+  description: Vasodilator drugs in patients with recurrent falls with persistent
+    postural hypotension i.e., systolic BP drop ≥ 20 mmHg and/or diastolic BP drop
+    ≥ 10 mmHg (risk of syncope, falls).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K4
+  description: Hypnotic Z-drugs i.e., zopiclone, zolpidem, zaleplon in patients with
+    recurrent falls (may cause protracted daytime sedation, ataxia).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K5
+  description: Anti-epileptic drugs in patients with recurrent falls (may impair sensorium,
+    may adversely affect cerebellar function).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K6
+  description: First generation antihistamines in patients with recurrent falls (may
+    impair sensorium).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K7
+  description: Opioids in patients with recurrent falls (may impair sensorium).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K8
+  description: Antidepressants in patients with recurrent falls (may impair sensorium).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K9
+  description: Alpha blockers as antihypertensives in patients with recurrent falls
+    (may cause orthostatic hypotension).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K10
+  description: Alpha blockers for prostatic bladder outflow symptoms, other than silodosin
+    in patients with recurrent falls (may cause orthostatic hypotension).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K11
+  description: Centrally acting antihypertensives (may impair sensorium and may cause
+    orthostatic hypotension).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: K12
+  description: Antimuscarinics for treatment of overactive bladder or urge incontinence
+    (may impair sensorium).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: L1
+  description: Use of oral or transdermal strong opioids (morphine, oxycodone, fentanyl,
+    buprenorphine, diamorphine, methadone, tramadol, pethidine, pentazocine) as first
+    line therapy for mild pain (WHO analgesic ladder not observed; paracetamol or
+    NSAID not prescribed as first-line therapy).
+  substances:
+  - NSAID
+  - WHO
+  enabled: true
+  phase: STOPP
+- id: L2
+  description: Use of daily regular (as distinct from PRN) opioids without concomitant
+    laxative (risk of severe constipation).
+  substances:
+  - PRN
+  enabled: true
+  phase: STOPP
+- id: L3
+  description: Long-acting opioids without short-acting opioids for break-through
+    moderate or severe pain (risk of persistence of severe pain).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: L4
+  description: Topical lidocaine (lignocaine) patch for treatment of chronic osteoarthritis
+    pain (lack of evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: L5
+  description: Gabapentinoids (e.g., gabapentin, pregabalin) for non-neuropathic pain
+    (lack of evidence of efficacy).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: L6
+  description: Paracetamol at doses ≥ 3 g/24 hours in patients with poor nutritional
+    status i.e., BMI < 18 or chronic liver disease (risk of hepatotoxicity).
+  substances:
+  - BMI
+  enabled: true
+  phase: STOPP
+- id: M1
+  description: Concomitant use of two or more drugs with antimuscarinic/anticholinergic
+    properties (e.g., bladder antispasmodics, intestinal antispasmodics, tricyclic
+    antidepressants, first generation antihistamines, antipsychotics) (risk of increased
+    antimuscarinic/anticholinergic toxicity).
+  substances: []
+  enabled: true
+  phase: STOPP
+- id: A1
+  description: Where a drug is clearly indicated and considered appropriate in the
+    particular clinical context and there is no clear contraindication, that drug
+    should be initiated as per formulary guidelines for dose and duration.
+  substances: []
+  enabled: true
+  phase: START
+- id: B1
+  description: Antihypertensive therapy where systolic blood pressure > 140 mmHg and
+    /or diastolic blood pressure > 90 mmHg, unless established moderate or severe
+    physical frailty in whom the threshold for therapy is 150 mmHg systolic pressure
+    and/or 90 mmHg diastolic pressure.
+  substances: []
+  enabled: true
+  phase: START
+- id: B2
+  description: Statin therapy with a documented history of coronary, cerebral or peripheral
+    vascular disease, unless the patient’s status is end-of-life or established moderate
+    or severe frailty.
+  substances: []
+  enabled: true
+  phase: START
+- id: B3
+  description: Angiotensin Converting Enzyme (ACE) inhibitor with coronary artery
+    disease.
+  substances:
+  - ACE
+  enabled: true
+  phase: START
+- id: B4
+  description: Beta-blocker with symptomatic coronary artery disease.
+  substances: []
+  enabled: true
+  phase: START
+- id: B5
+  description: Angiotensin Converting Enzyme (ACE) inhibitor for heart failure with
+    reduced ejection fraction.
+  substances:
+  - ACE
+  enabled: true
+  phase: START
+- id: B6
+  description: Cardio-selective beta-blocker (bisoprolol, nebivolol, metoprolol or
+    carvedilol) for stable heart failure with reduced ejection fraction.
+  substances: []
+  enabled: true
+  phase: START
+- id: B7
+  description: Mineralocorticoid receptor antagonist (spironolactone, eplerenone)
+    in heart failure without severe renal function impairment i.e., eGFR > 30 ml/min/m2.
+  substances:
+  - GFR
+  enabled: true
+  phase: START
+- id: B8
+  description: SGLT-2 inhibitors (canagliflozin, dapagliflozin, empagliflozin, ertugliflozin)
+    in symptomatic heart failure with or without reduced ejection fraction regardless
+    of diabetes being present or not.
+  substances:
+  - SGLT-
+  enabled: true
+  phase: START
+- id: B9
+  description: Sacubitril/valsartan in heart failure with reduced ejection fraction
+    causing persistent heart failure symptoms despite optimal dose of ACE inhibitor
+    or Angiotensin Receptor Blocker (Sacubitril/valsartan to replace ACE inhibitor
+    or Angiotensin Receptor Blocker).
+  substances:
+  - ACE
+  enabled: true
+  phase: START
+- id: B10
+  description: Beta-blocker for chronic atrial fibrillation with uncontrolled heart
+    rate.
+  substances: []
+  enabled: true
+  phase: START
+- id: B11
+  description: Intravenous iron for symptomatic heart failure with reduced ejection
+    fraction and iron deficiency.
+  substances: []
+  enabled: true
+  phase: START
+- id: C1
+  description: Vitamin K antagonists or direct thrombin inhibitors or factor Xa inhibitors
+    in the presence of chronic or paroxysmal atrial fibrillation.
+  substances: []
+  enabled: true
+  phase: START
+- id: C2
+  description: Antiplatelet therapy (aspirin or clopidogrel or prasugrel or ticagrelor)
+    with a documented history of coronary, cerebral or peripheral vascular disease.
+  substances: []
+  enabled: true
+  phase: START
+- id: D1
+  description: L-DOPA or a dopamine agonist in idiopathic Parkinson’s disease with
+    functional impairment and resultant disability.
+  substances:
+  - L-DOPA
+  enabled: true
+  phase: START
+- id: D2
+  description: Non-TCA antidepressant for major depression.
+  substances:
+  - TCA
+  enabled: true
+  phase: START
+- id: D3
+  description: Acetylcholinesterase inhibitor (donepezil, rivastigmine, galantamine)
+    for mild-moderate Alzheimer’s dementia.
+  substances: []
+  enabled: true
+  phase: START
+- id: D4
+  description: Rivastigmine for Dementia with Lewy Bodies or Parkinson’s disease dementia.
+  substances: []
+  enabled: true
+  phase: START
+- id: D5
+  description: Selective serotonin reuptake inhibitor (or SNRI or pregabalin if SSRI
+    contraindicated) for persistent severe anxiety that affects independent functioning
+    and quality of life.
+  substances:
+  - SNRI
+  - SSRI
+  enabled: true
+  phase: START
+- id: D6
+  description: Dopamine agonist (ropinirole or pramipexole or rotigotine) for Restless
+    Legs Syndrome, once iron deficiency and severe chronic kidney disease (i.e., eGFR
+    < 30 ml/min/m2) have been excluded.
+  substances:
+  - GFR
+  enabled: true
+  phase: START
+- id: D7
+  description: Propranolol for essential tremor with functional impairment and resultant
+    disability.
+  substances: []
+  enabled: true
+  phase: START
+- id: E1
+  description: One-alpha hydroxycholecalciferol or calcitriol supplementation in severe
+    chronic kidney (i.e., eGFR < 30 ml/min/m2) disease with hypocalcaemia (corrected
+    serum calcium < 2.10 mmol/l) and associated secondary hyperparathyroidism.
+  substances:
+  - GFR
+  enabled: true
+  phase: START
+- id: E2
+  description: Phosphate binder in severe chronic kidney disease (i.e., eGFR < 30
+    ml/min/m2) if serum phosphate concentration persistently >1.76 mmol/l (5.5 mg/dl)
+    despite adherence to renal diet.
+  substances:
+  - GFR
+  enabled: true
+  phase: START
+- id: E3
+  description: Erythopoietin analogue in severe chronic kidney disease (i.e., eGFR
+    < 30 ml/min/m2) with symptomatic anaemia not attributable to haematinic or iron
+    deficiency to achieve a haemoglobin concentration of 10.0 to 12.0 g/dl.
+  substances:
+  - GFR
+  enabled: true
+  phase: START
+- id: E4
+  description: Angiotensin receptor blocker (ARB) or Angiotensin Converting Enzyme
+    Inhibitor (ACE-I) in chronic kidney disease with proteinuria i.e., urine albumin
+    excretion >300 mg/24 hours.
+  substances:
+  - ACE-I
+  - ARB
+  enabled: true
+  phase: START
+- id: F1
+  description: Proton Pump Inhibitor with severe gastro-oesophageal reflux disease
+    or peptic oesophageal stricture requiring dilatation.
+  substances: []
+  enabled: true
+  phase: START
+- id: F2
+  description: Proton pump inhibitor with initiation of low-dose aspirin and previous
+    history of peptic ulcer or reflux oesophagitis.
+  substances: []
+  enabled: true
+  phase: START
+- id: F3
+  description: Proton pump inhibitor with short-term (< 2 weeks) or longer-term (>
+    2 weeks) NSAID.
+  substances:
+  - NSAID
+  enabled: true
+  phase: START
+- id: F4
+  description: Fibre supplements (e.g., bran, ispaghula, methylcellulose, sterculia)
+    for diverticulosis with a history of constipation.
+  substances: []
+  enabled: true
+  phase: START
+- id: F5
+  description: Osmotic laxative (e.g., lactulose, macrogol, sorbitol) for chronic
+    persistent idiopathic or secondary benign constipation.
+  substances: []
+  enabled: true
+  phase: START
+- id: F6
+  description: Probiotics used with antibiotics in patients who are not immunocompromised
+    or severely debilitated for the prevention of Clostridioides difficile-associated
+    diarrhoea.
+  substances: []
+  enabled: true
+  phase: START
+- id: F7
+  description: Helicobacter pylori eradication therapy in HP-associated active peptic
+    ulcer disease.
+  substances:
+  - HP-
+  enabled: true
+  phase: START
+- id: G1
+  description: Long-acting muscarinic antagonist (LAMA e.g., tiotropium, aclidinium,
+    umeclidinium, glycopyrronium) or long-acting beta 2 agonist (LABA e.g., bambuterol,
+    formoterol, indacaterol, olodaterol, salmeterol) for symptomatic COPD of GOLD
+    1 or 2 severity and chronic asthma.
+  substances:
+  - COPD
+  - GOLD
+  - LABA
+  - LAMA
+  enabled: true
+  phase: START
+- id: G2
+  description: Regular i.e. daily inhaled corticosteroid (e.g., beclomethasone, budesonide,
+    ciclesonide, fluticasone, mometasone) for moderate-severe asthma or COPD of GOLD
+    3 or 4 severity, where FEV1 <50% of predicted value and repeated exacerbations
+    requiring treatment with oral corticosteroids.
+  substances:
+  - COPD
+  - FEV
+  - GOLD
+  enabled: true
+  phase: START
+- id: G3
+  description: Home continuous oxygen with documented chronic hypoxaemia (i.e., pO2
+    < 8.0 kPa or 60 mmHg or SaO2 < 89%).
+  substances: []
+  enabled: true
+  phase: START
+- id: H1
+  description: Disease-modifying anti-rheumatic drug (DMARD) with chronic, active
+    and disabling rheumatoid arthritis.
+  substances:
+  - DMARD
+  enabled: true
+  phase: START
+- id: H2
+  description: Bisphosphonates and vitamin D and calcium in patients taking long-term
+    systemic corticosteroid therapy for prevention of steroid-induced osteoporosis.
+  substances: []
+  enabled: true
+  phase: START
+- id: H3
+  description: Vitamin D in patients with known osteoporosis and/or previous fragility
+    fracture(s) and/or Bone Mineral Density T-scores below -2.5 in one or multiple
+    sites.
+  substances: []
+  enabled: true
+  phase: START
+- id: H4
+  description: Bone anti-resorptive or anabolic therapy (e.g., bisphosphonate, teriparatide,
+    denosumab) in patients with documented osteoporosis (Bone Mineral Density T-scores
+    below -2.5 in one or multiple sites) and/or previous history of fragility fracture(s)
+    – where no pharmacological or clinical status contraindication exists such as
+    poor one-year life expectancy.
+  substances: []
+  enabled: true
+  phase: START
+- id: H5
+  description: Vitamin D supplement in older people with confirmed 25-hydroxycolecalciferol
+    deficiency (< 20 micrograms/L, < 50 nmol/L) who are housebound or experiencing
+    falls or with osteopenia (Bone Mineral Density T-score is less than -1.0 but above
+    -2.5 in one or multiple sites).
+  substances: []
+  enabled: true
+  phase: START
+- id: H6
+  description: Anti-resorptive treatment after discontinuation of at least two doses
+    of denosumab (rebound increased bone turnover markers, BMD loss, and increased
+    risk of vertebral fracture following denosumab discontinuation).
+  substances:
+  - BMD
+  enabled: true
+  phase: START
+- id: H7
+  description: Anti-resorptive treatment after discontinuation of teriparatide/abaloparatide
+    treatment for osteoporosis.
+  substances: []
+  enabled: true
+  phase: START
+- id: H8
+  description: Xanthine-oxidase inhibitors (e.g. allopurinol, febuxostat) with a history
+    of recurrent episodes of gout.
+  substances: []
+  enabled: true
+  phase: START
+- id: H9
+  description: Folic acid supplement in patients taking methotrexate.
+  substances: []
+  enabled: true
+  phase: START
+- id: I1
+  description: Selective alpha-1 receptor blocker (e.g., tamsulosin, silodosin) for
+    lower urinary tract symptoms related to benign prostatic hyperplasia where prostatectomy
+    is not considered necessary or appropriate or safe.
+  substances: []
+  enabled: true
+  phase: START
+- id: I2
+  description: 5-alpha reductase inhibitor (e.g., finasteride, dutasteride) for lower
+    urinary tract symptoms related to benign prostatic hyperplasia where prostatectomy
+    is not considered necessary or appropriate or safe.
+  substances: []
+  enabled: true
+  phase: START
+- id: I3
+  description: Topical vaginal oestrogen or vaginal oestrogen pessary for symptomatic
+    atrophic vaginitis.
+  substances: []
+  enabled: true
+  phase: START
+- id: I4
+  description: Topical vaginal oestrogen or vaginal oestrogen pessary in women for
+    recurrent urinary tract infections.
+  substances: []
+  enabled: true
+  phase: START
+- id: I5
+  description: Phosphodiesterase type-5 inhibitors (e.g., avanafil, sildenafil, tadalafil,
+    vardenafil) for persistent erectile dysfunction that causes distress.
+  substances: []
+  enabled: true
+  phase: START
+- id: J1
+  description: ACE inhibitor or Angiotensin Receptor Blocker (if intolerant of ACE
+    inhibitor) in diabetes with evidence of renal disease i.e., dipstick proteinuria
+    or microalbuminuria (>30 mg/24 hours) unless evidence of severe CKD (eGFR < 30
+    ml/min/m2).
+  substances:
+  - ACE
+  - CKD
+  - GFR
+  enabled: true
+  phase: START
+- id: K1
+  description: High-potency opioids in moderate-severe non-arthritis pain, where paracetamol,
+    NSAIDs or low-potency opioids are not appropriate to the pain severity or have
+    been ineffective.
+  substances:
+  - NSAID
+  enabled: true
+  phase: START
+- id: K2
+  description: Laxatives in patients receiving opioids regularly i.e., other than
+    PRN use.
+  substances:
+  - PRN
+  enabled: true
+  phase: START
+- id: K3
+  description: Topical 5% lidocaine (lignocaine) patch for localized neuropathic pain,
+    e.g. post-herpetic neuralgia.
+  substances: []
+  enabled: true
+  phase: START
+- id: L1
+  description: Seasonal influenza vaccine annually.
+  substances: []
+  enabled: true
+  phase: START
+- id: L2
+  description: Pneumococcal vaccine at least once according to national guidelines.
+  substances: []
+  enabled: true
+  phase: START
+- id: L3
+  description: Varicella-zoster vaccine according to national guidelines.
+  substances: []
+  enabled: true
+  phase: START
+- id: L4
+  description: SARS-CoV2 vaccine according to national guidelines.
+  substances:
+  - SARS-C
+  enabled: true
+  phase: START
