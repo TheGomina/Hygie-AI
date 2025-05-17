@@ -1,5 +1,9 @@
 # Hygie-AI
 
+[![CI](https://github.com/TheGomina/Hygie-AI/actions/workflows/ci.yml/badge.svg)](https://github.com/TheGomina/Hygie-AI/actions/workflows/ci.yml)
+
+[![Coverage](https://codecov.io/gh/TheGomina/Hygie-AI/branch/main/graph/badge.svg?token=32faca0c-fb12-478f-b368-171bc78de989&threshold=85)](https://codecov.io/gh/TheGomina/Hygie-AI)
+
 ## Plateforme Révolutionnaire de Pharmacie Clinique Orchestrant des LLM Médicaux
 
 Hygie-AI transforme la pharmacie clinique en orchestrant des LLMs médicaux spécialisés (BioMistral, Hippo-Mistral, MedFound) pour améliorer les Bilans Partagés de Médication (BPM) et créer un nouveau standard de pratique pharmaceutique.
@@ -40,6 +44,24 @@ docker-compose up -d
 ## Licence
 
 Ce projet est sous licence propriétaire. Tous droits réservés.
+
+## Algorithmes pharmaceutiques et Base de Connaissances
+
+Hygie-AI intègre les concepts clés du Chapitre 2 de *AlgorithmesEtBaseDeConnaissances.pdf* (ANAP) :  
+
+- **Algorithme pharmaceutique (AP)** : modélisation d’une « situation à risque » puis définition d’une conduite à tenir pour l’intervention pharmaceutique.  
+- **Base de Connaissances des AP (BDC-AP)** : ontologie standardisée de règles, classifications de gravité (EI, PLP, IP) et références bibliographiques.  
+
+**Structure générique d’un AP :**  
+1. Descriptif de la situation à risque  
+2. Règle en langage logique  
+3. Règle en langage informatique  
+4. Conduite à tenir  
+5. Références bibliographiques  
+6. Référencement dans la BDC  
+7. Modèle générique d’un AP  
+
+Se référer à `backend/resources/AlgorithmesEtBaseDeConnaissances.pdf` pour plus de détails.  
 
 ## Conformité aux règles de développement
 
