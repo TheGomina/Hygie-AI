@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import csv
 import os
+import pandas as pd
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
@@ -178,6 +179,59 @@ class _BDPMRepository(DrugRepository):
             return []
         return self._cis_to_substances.get(cis, [])
 
+    def prescription_rules(self, name: str) -> Optional[str]:
+        """Return prescription rules for the given medication name."""
+        dci = self.find_dci(name)
+        if not dci:
+            return None
+        rules = _load_dispense_surveillance_rules().get(dci)
+        return rules.get('prescriptions') if rules else None
+
+    def surveillance_rules(self, name: str) -> Optional[str]:
+        """Return surveillance rules for the given medication name."""
+        dci = self.find_dci(name)
+        if not dci:
+            return None
+        rules = _load_dispense_surveillance_rules().get(dci)
+        return rules.get('surveillances') if rules else None
+
+
+# ---------------------------------------------------------------------------
+# Prescription & Surveillance rules
+# ---------------------------------------------------------------------------
+
+@lru_cache(maxsize=1)
+def _load_dispense_surveillance_rules() -> Dict[str, Dict[str, str]]:
+    """Load prescription and surveillance rules from Omédit CSV."""
+    csv_path = Path(__file__).resolve().parent.parent / "resources" / "Delivrance-et-surveillance-particuliere.csv"
+    try:
+        df = pd.read_csv(
+            csv_path,
+            sep=';',
+            header=None,
+            names=['dci', 'princeps', 'prescriptions', 'surveillances'],
+            usecols=[0, 1, 2, 3],
+            skiprows=2,
+            dtype=str,
+            encoding='cp1252',
+            engine='python',
+        )
+    except Exception:
+        return {}
+    df = df.dropna(subset=['dci'])
+    df = df.fillna('')
+    mapping: Dict[str, Dict[str, str]] = {}
+    for _, row in df.iterrows():
+        dci = row['dci'].strip().upper()
+        if not dci:
+            continue
+        mapping[dci] = {
+            'princeps': row['princeps'].strip(),
+            'prescriptions': row['prescriptions'].strip(),
+            'surveillances': row['surveillances'].strip(),
+        }
+    return mapping
+
 
 # ---------------------------------------------------------------------------
 # Static ATC mapping (minimal for MVP)
@@ -250,3 +304,11 @@ def get_repository() -> DrugRepository:  # noqa: D401
     spec = Path(os.getenv("BDPM_CSV_PATH", str(spec_default)))
     compo = Path(os.getenv("BDPM_COMPO_PATH", str(compo_default)))
     return _BDPMRepository(spec, compo)
+
+
+def supported_atc_codes() -> List[str]:
+    """Retourne la liste des codes ATC supportés."""
+    codes = list(_ATC_TO_SUBS.keys())
+    assert isinstance(codes, list), "Expected list of ATC codes"
+    assert all(isinstance(c, str) for c in codes), "All ATC codes must be strings"
+    return codes

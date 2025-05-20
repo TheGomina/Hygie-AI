@@ -42,7 +42,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 def _user_to_db(u: UserCreate) -> UserDB:
-    return UserDB(**u.dict(), hashed_password=hash_password(u.password))
+    return UserDB(**u.model_dump(), hashed_password=hash_password(u.password))
 
 
 def _user_from_mongo(doc) -> UserDB | None:
@@ -62,8 +62,8 @@ def register(payload: UserCreate):
     if users_col().find_one({"email": payload.email}):
         raise HTTPException(status_code=400, detail="Email already registered")
     user_db = _user_to_db(payload)
-    res = users_col().insert_one(user_db.dict(exclude={"id"}))
-    token = create_access_token(str(res.inserted_id))
+    res = users_col().insert_one(user_db.model_dump(exclude={"id"}))
+    token = create_access_token(str(res.inserted_id), user_db.role)
     return Token(access_token=token)
 
 
@@ -73,4 +73,4 @@ def login(payload: UserCreate):
     user = _user_from_mongo(doc)
     if not user or not verify_password(payload.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    return Token(access_token=create_access_token(user.id))
+    return Token(access_token=create_access_token(user.id, user.role))

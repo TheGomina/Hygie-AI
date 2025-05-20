@@ -9,11 +9,11 @@ from __future__ import annotations
 import json
 import os
 from functools import lru_cache
+import functools
+from prometheus_client import Histogram
 from pathlib import Path
 from typing import Dict, List, Tuple
-
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer  # type: ignore
+from collections import Counter
 
 # === Chemins locaux vers les poids LLM =======================================
 # Mise à jour après téléchargement dans C:\Users\ssebb\LLM
@@ -59,10 +59,12 @@ MODEL_PATHS: Dict[str, Path] = _discover_models() or {
 
 # Normalise les clés pour accepter par ex. "biomistral7b" ou "biomistral-7b".
 def _resolve_name(name: str) -> str:
+    # Normalize input and available model keys for matching
     slug = name.lower().replace("-", "").replace("_", "")
-    for k in MODEL_PATHS:
-        if k == slug or k.startswith(slug):
-            return k
+    for orig_key in MODEL_PATHS:
+        normalized_key = orig_key.lower().replace("-", "").replace("_", "")
+        if normalized_key == slug or normalized_key.startswith(slug):
+            return orig_key
     # défaut : premier modèle disponible
     if MODEL_PATHS:
         return next(iter(MODEL_PATHS))
@@ -75,14 +77,29 @@ HF_API_KEY = settings.hf_api_key
 
 # ----------------------------------------------------------------------------
 
+# Histogram for orchestration latency by stage
+LLM_ORCH_HISTOGRAM = Histogram(
+    'hygie_llm_orchestration_seconds',
+    'Latency of LLM orchestration stages',
+    ['stage'],
+)
+
+def track(stage: str):
+    """Decorator to track function latency with Prometheus histogram."""
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            with LLM_ORCH_HISTOGRAM.labels(stage=stage).time():
+                return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
 @lru_cache(maxsize=3)
 def _load_model(name: str) -> Tuple[AutoTokenizer, AutoModelForCausalLM]:
-    """Charge *lazy* le tokenizer et le modèle.
+    """Charge *lazy* le tokenizer et le modèle."""
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer  # type: ignore
 
-    Si le chargement échoue (poids manquants, erreur Pickle, etc.), lève
-    l'exception afin que l'appelant gère le fallback.
-    """
     path = MODEL_PATHS.get(name)
     if path is None or not path.exists():
         raise FileNotFoundError(f"Chemin modèle introuvable : {path}")
@@ -126,6 +143,9 @@ def _cached_local_generate(
     name: str, prompt_hash: str, prompt: str
 ) -> str:  # noqa: D401
     """Génère en local et met en cache le résultat."""
+    import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer  # type: ignore
+
     tok, mdl = _load_model(name)
     inputs = tok(prompt, return_tensors="pt").to(mdl.device)
     with torch.no_grad():
@@ -185,14 +205,97 @@ def _hf_generate(prompt: str) -> str:
     return str(data)[:500]
 
 
+@track('ensemble_generate')
+def ensemble_generate(prompt: str) -> str:
+    """Ensemble generation: calls each local LLM and selects consensus."""
+    prompt_hash = str(hash(prompt))
+    # Fallback if no local models
+    if not MODEL_PATHS:
+        return _hf_generate(prompt)
+    responses: List[str] = []
+    for name in MODEL_PATHS:
+        try:
+            resp = _cached_local_generate(name, prompt_hash, prompt)
+        except Exception:
+            resp = _hf_generate(prompt)
+        responses.append(resp)
+    counts = Counter(responses)
+    # Return most common response
+    return counts.most_common(1)[0][0]
+
+
+@track('cascade_generate')
+def cascade_generate(prompt: str) -> str:  # noqa: D401
+    """Pipeline cascade : BioMistral → MedFound → Hippomistral."""
+    # Stage 1: synthesis
+    try:
+        resolved = _resolve_name('biomistral')
+        summary = _cached_local_generate(resolved, str(hash(prompt)), prompt)
+    except Exception:
+        summary = _hf_generate(prompt)
+
+    # Stage 2: factual analysis
+    analysis_prompt = (
+        f"Analyse factuelle de la synthèse suivante et détecte interactions ou erreurs :\n{summary}"
+    )
+    try:
+        resolved2 = _resolve_name('medfound')
+        analysis = _cached_local_generate(resolved2, str(hash(analysis_prompt)), analysis_prompt)
+    except Exception:
+        analysis = _hf_generate(analysis_prompt)
+
+    # Stage 3: reformulation finale
+    reformulation_prompt = (
+        f"Reformule de façon claire, structurée et exhaustive :\n{analysis}"
+    )
+    try:
+        resolved3 = _resolve_name('hippomistral')
+        return _cached_local_generate(resolved3, str(hash(reformulation_prompt)), reformulation_prompt)
+    except Exception:
+        return _hf_generate(reformulation_prompt)
+
+
+@track('hybrid_generate_summary')
+def hybrid_generate_summary(
+    demographics: Dict[str, str | int],
+    medications: List[str],
+    problems: List[str]
+) -> str:  # noqa: D401
+    """Hybrid pipeline: cascade + ensemble across LLMs for BMP summary."""
+    # build base prompt
+    base_prompt = (
+        "Vous êtes un pharmacien clinicien expert.\n"
+        "Analysez la liste médicamenteuse et fournissez : \n"
+        "1. Synthèse du traitement. \n"
+        "2. Problèmes identifiés. \n"
+        "3. Recommandations priorisées.\n\n"
+        f"Données patient : {json.dumps(demographics, ensure_ascii=False)}\n"
+        f"Médicaments : {', '.join(medications)}\n"
+        f"Problèmes (règles fixes) : {', '.join(problems) if problems else 'Aucun'}\n"
+        "Réponds en français, bullet points."
+    )
+    # Stage 1: synthesis
+    summary = ensemble_generate(base_prompt)
+    # Stage 2: factual analysis
+    analysis_prompt = (
+        f"Analyse factuelle de la synthèse suivante et détecte interactions ou erreurs :\n{summary}"
+    )
+    analysis = ensemble_generate(analysis_prompt)
+    # Stage 3: reformulation finale
+    reformulation_prompt = (
+        f"Reformule de façon claire, structurée et exhaustive :\n{analysis}"
+    )
+    return ensemble_generate(reformulation_prompt)
+
+
 def generate_summary(  # noqa: D401
     demographics: Dict[str, str | int],
     medications: List[str],
     problems: List[str],
     model_name: str = "biomistral",
 ) -> str:
-    """Génère une synthèse BMP via le modèle *model_name* (local si possible)."""
-
+    """Génère une synthèse BMP via une orchestration LLM (hybrid, ensemble, cascade)."""
+    # Construire le prompt de base
     prompt = (
         "Vous êtes un pharmacien clinicien expert.\n"
         "Analysez la liste médicamenteuse et fournissez : \n"
@@ -204,13 +307,22 @@ def generate_summary(  # noqa: D401
         f"Problèmes (règles fixes) : {', '.join(problems) if problems else 'Aucun'}\n"
         "Réponds en français, bullet points."
     )
-
+    # Sélection de la stratégie
+    try:
+        strat = model_name.lower()
+        if strat == "cascade":
+            return cascade_generate(prompt)
+        elif strat == "ensemble":
+            return ensemble_generate(prompt)
+        else:
+            # hybride par défaut
+            return hybrid_generate_summary(demographics, medications, problems)
+    except Exception as exc:  # pragma: no cover
+        print(f"[LLM] fallback chaîne – {exc}")
+    # Fallback local ou HF
     prompt_hash = str(hash(prompt))
-
     try:
         resolved = _resolve_name(model_name)
         return _cached_local_generate(resolved, prompt_hash, prompt)
-    except Exception as exc:  # pragma: no cover
-        # Log et fallback
-        print(f"[LLM] fallback HF – {exc}")
+    except Exception:
         return _hf_generate(prompt)

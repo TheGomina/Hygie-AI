@@ -202,3 +202,14 @@ L'architecture backend de Hygie-AI est conçue selon les principes de microservi
 ### 9.3 Traçabilité pharmaceutique
 - Audit trail complet des actions
 - Conservation selon obligations légales
+
+## 10. Orchestrateur LLM
+
+- Chargement des modèles locaux (BioMistral, MedFound-LLaMA3, Hippomistral) via `transformers` (device_map="auto", torch.float16).
+- Cache LRU (`functools.lru_cache(maxsize=3)`) évitant le rechargement fréquent.
+- Stratégies de génération :
+  - **ensemble_generate** : vote majoritaire entre tous les modèles disponibles.
+  - **cascade_generate** : pipeline BioMistral → MedFound → Hippomistral.
+  - **hybrid_generate_summary** : combinaison pipeline cascade + vote d’ensemble.
+- Fallback vers l’API Hugging Face (`_hf_generate`) si modèle local absent ou erreur.
+- Benchmarks de performance (CSV <50 ms, PDF <20 ms) et tests unitaires/intégration pour valider la cohérence et la latence.

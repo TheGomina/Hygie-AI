@@ -1,0 +1,177 @@
+- name: AP_C10AA
+  steps:
+  - content: Patient sous classe ATC C10AA
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''atorvastatin'' in patient[''medications''] OR ''atrovastatin'' in
+      patient[''medications''] OR ''pravastatin'' in patient[''medications''] OR ''simvastatin''
+      in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''atorvastatin'' or m.lower()
+      == ''atrovastatin'' or m.lower() == ''pravastatin'' or m.lower() == ''simvastatin''
+      for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe C10AA
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: C10AA
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_J01FA
+  steps:
+  - content: Patient sous classe ATC J01FA
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''clarithromycin'' in patient[''medications''] OR ''erythromycin'' in
+      patient[''medications''] OR ''azithromycin'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''clarithromycin'' or m.lower()
+      == ''erythromycin'' or m.lower() == ''azithromycin'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe J01FA
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: J01FA
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_M01AE
+  steps:
+  - content: Patient sous classe ATC M01AE
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''ibuprofen'' in patient[''medications''] OR ''naproxen'' in patient[''medications'']
+      OR ''ketoprofen'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''ibuprofen'' or m.lower() ==
+      ''naproxen'' or m.lower() == ''ketoprofen'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe M01AE
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: M01AE
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_C09AA
+  steps:
+  - content: Patient sous classe ATC C09AA
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''perindopril'' in patient[''medications''] OR ''ramipril'' in patient[''medications'']
+      OR ''lisinopril'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''perindopril'' or m.lower()
+      == ''ramipril'' or m.lower() == ''lisinopril'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe C09AA
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: C09AA
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_C09CA
+  steps:
+  - content: Patient sous classe ATC C09CA
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''valsartan'' in patient[''medications''] OR ''candesartan'' in patient[''medications'']
+      OR ''losartan'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''valsartan'' or m.lower() ==
+      ''candesartan'' or m.lower() == ''losartan'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe C09CA
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: C09CA
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_B01AF
+  steps:
+  - content: Patient sous classe ATC B01AF
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''dabigatran'' in patient[''medications''] OR ''rivaroxaban'' in patient[''medications'']
+      OR ''apixaban'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''dabigatran'' or m.lower() ==
+      ''rivaroxaban'' or m.lower() == ''apixaban'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe B01AF
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: B01AF
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique
+- name: AP_N02AA
+  steps:
+  - content: Patient sous classe ATC N02AA
+    id: situation
+    title: Descriptif de la situation à risque
+  - content: '''hydromorphone'' in patient[''medications''] OR ''morphine'' in patient[''medications'']
+      OR ''oxycodone'' in patient[''medications'']'
+    id: logical_rule
+    title: Règle en langage logique
+  - content: 'lambda patient, meds: any(m.lower() == ''hydromorphone'' or m.lower()
+      == ''morphine'' or m.lower() == ''oxycodone'' for m in meds)'
+    id: code_rule
+    title: Règle en langage informatique
+  - content: Vérifier l'utilisation appropriée des médicaments de la classe N02AA
+    id: intervention
+    title: Conduite à tenir
+  - content: ANAP
+    id: references
+    title: Références bibliographiques
+  - content: N02AA
+    id: bdc_reference
+    title: Référencement dans la base de connaissances
+  - content: ''
+    id: template
+    title: Modèle générique d’un algorithme pharmaceutique

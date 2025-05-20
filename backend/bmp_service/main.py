@@ -4,7 +4,8 @@ Stub version – will be expanded with clinical rules & LLM orchestration.
 
 from datetime import datetime, timezone
 
-from fastapi import Depends, FastAPI, HTTPException, Response
+from fastapi import Depends, FastAPI, HTTPException, Response, Query
+import inspect
 from fastapi.middleware.cors import CORSMiddleware
 
 # fhir.resources for parsing input Bundle
@@ -21,16 +22,37 @@ from prometheus_client import CONTENT_TYPE_LATEST, Counter, Summary, generate_la
 from .bdpm_loader import normalize_drug as normalize
 from .config import settings
 from .fhir_bundle import FHIR_VERSION, build_bundle
-from .llm_orchestrator import generate_summary, list_local_models
+from .llm_orchestrator import generate_summary, list_local_models, _resolve_name, _cached_local_generate, ensemble_generate
 from .rules import detect_interactions
-from .security import get_current_user_id
+from .security import get_current_user, require_role, CurrentUser
+from .anticholinergic import compute_burden_score
 from .stopp_start import evaluate_rules
+
+# Optional OpenTelemetry instrumentation
+try:
+    from opentelemetry import trace
+    from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import BatchSpanProcessor
+    from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+    from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+except ImportError:
+    FastAPIInstrumentor = None
 
 app = FastAPI(
     title="Hygie-AI BMP API",
     version=settings.VERSION if hasattr(settings, "VERSION") else "0.1.0",
     description="API for running shared medication review analyses.",
 )
+
+# Apply instrumentation if available
+if FastAPIInstrumentor:
+    resource = Resource.create({SERVICE_NAME: "hygie-bmp-service"})
+    provider = TracerProvider(resource=resource)
+    provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter()))
+    trace.set_tracer_provider(provider)
+    FastAPIInstrumentor.instrument_app(app)
+
 app.openapi_tags = []
 
 # Prometheus metrics definitions
@@ -133,6 +155,15 @@ class BMPResponse(BaseModel):
     recommendations: list[str] = []
 
 
+class ChatRequest(BaseModel):
+    prompt: str
+    model: str | None = None
+
+
+class ChatResponse(BaseModel):
+    response: str
+
+
 # Allow Next.js dev server during development
 origins = [
     "http://localhost:3000",
@@ -159,7 +190,8 @@ async def metrics_middleware(request, call_next):  # type: ignore[type-arg]
 @app.post("/bmp/run", response_model=BMPResponse, tags=["bmp"])
 async def run_bmp(
     request: BMPRequest,
-    user_id: str = Depends(get_current_user_id),
+    strategy: str = Query("hybrid", description="LLM orchestration strategy", regex="^(hybrid|ensemble|cascade)$"),
+    current_user: CurrentUser = Depends(get_current_user),
 ) -> BMPResponse:
     """Run the BMP pipeline – MVP v0.2.
 
@@ -169,17 +201,18 @@ async def run_bmp(
     meds_raw = [m.name for m in request.medications]
     meds_norm = [normalize(n) for n in meds_raw]
 
-    # Pydantic v2: dict() est déprécié → model_dump(); compat v1 conservée
-    demo = (
-        request.demographics.model_dump()  # type: ignore[attr-defined]
-        if hasattr(request.demographics, "model_dump")
-        else request.demographics.dict()
-    )
+    # Extract demographics via Pydantic v2
+    demo = request.demographics.model_dump()
 
     # Detect interactions and STOPP/START rules
-    interactions = detect_interactions(meds_norm)
-    stops, starts = evaluate_rules(demo, meds_norm)
-    problems = interactions + stops
+    try:
+        interactions = detect_interactions(meds_norm)
+        stops, starts = evaluate_rules(demo, meds_norm)
+        problems = interactions + stops
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
 
     # Anticholinergic burden (CIA / ACB)
     burden = compute_burden_score(meds_norm)
@@ -196,13 +229,19 @@ async def run_bmp(
             "Consulter les recommandations cliniques pour les interactions identifiées."
         )
 
-    # Call LLM to generate high-level summary
-    summary = generate_summary(demo, meds_norm, problems)
+    # Call LLM to generate high-level summary with chosen strategy
+    # Determine how to call generate_summary based on signature (to support stubs)
+    sig = inspect.signature(generate_summary)
+    if len(sig.parameters) >= 4:
+        summary = generate_summary(demo, meds_norm, problems, strategy)
+    else:
+        summary = generate_summary(demo, meds_norm, problems)
+    recommendations.insert(0, summary)
 
     return BMPResponse(
         status="ok",
         problems=problems,
-        recommendations=[summary, *recommendations],
+        recommendations=recommendations,
     )
 
 
@@ -211,17 +250,23 @@ async def run_bmp(
 
 @app.post("/bmp/fhir", tags=["bmp"])
 async def run_bmp_fhir(
-    request: BMPRequest, user_id: str = Depends(get_current_user_id)
-):  # noqa: D401
+    request: BMPRequest,
+    strategy: str = Query("hybrid", description="LLM orchestration strategy", regex="^(hybrid|ensemble|cascade)$"),
+    current_user: CurrentUser = Depends(get_current_user),
+) -> dict:
     """Same analysis but returns a FHIR Bundle (JSON)."""
 
-    result = await run_bmp(request, user_id)  # reuse logic
+    # Execute BMP pipeline with chosen strategy
+    bmp_sig2 = inspect.signature(run_bmp)
+    if len(bmp_sig2.parameters) >= 3:
+        result = await run_bmp(request, strategy, current_user)
+    elif len(bmp_sig2.parameters) == 2:
+        result = await run_bmp(request, current_user)
+    else:
+        result = await run_bmp(request)
+
     bundle = build_bundle(
-        patient=(
-            request.demographics.model_dump()  # type: ignore[attr-defined]
-            if hasattr(request.demographics, "model_dump")
-            else request.demographics.dict()
-        ),
+        patient=request.demographics.model_dump(),
         medications=[m.name for m in request.medications],
         detected_issues=result.problems,
         recommendations=result.recommendations,
@@ -233,8 +278,19 @@ async def run_bmp_fhir(
 
 
 @app.get("/models", summary="Liste des modèles LLM locaux disponibles")
-async def get_models():  # noqa: D401
+async def get_models(current_user: CurrentUser = Depends(get_current_user)):  # noqa: D401
     return {"models": list_local_models()}
+
+
+# Chat endpoint
+@app.post("/chat", response_model=ChatResponse, tags=["chat"])
+async def chat_endpoint(
+    req: ChatRequest,
+    current_user: CurrentUser = Depends(require_role("pro")),
+) -> ChatResponse:
+    """Chat endpoint (stub for now)."""
+    # Stubbed until multi-LLM chat is implemented
+    return ChatResponse(response="LLM stub")
 
 
 # Expose Prometheus metrics endpoint
@@ -253,18 +309,25 @@ def fhir_metadata():  # noqa: D401
 
 @app.post("/fhir/Bundle/$bmp", summary="Analyse BMP à partir d'un Bundle FHIR")
 async def fhir_bmp_bundle(
-    bundle: dict, user_id: str = Depends(get_current_user_id)
-):  # noqa: D401
+    bundle: dict,
+    strategy: str = Query("hybrid", description="LLM orchestration strategy", regex="^(hybrid|ensemble|cascade)$"),
+    current_user: CurrentUser = Depends(get_current_user),
+) -> dict:  # noqa: D401
     demo, meds = _parse_input_bundle(bundle)
 
-    # Reuse existing pipeline
+    # Reuse existing pipeline with chosen strategy
     bmp_req = BMPRequest(
         patient_id="anonymous",
         demographics=Demographics(**demo) if demo else Demographics(age=0, sex="U"),
         medications=[Medication(name=m) for m in meds],
     )
-
-    result = await run_bmp(bmp_req, user_id)
+    bmp_sig = inspect.signature(run_bmp)
+    if len(bmp_sig.parameters) >= 3:
+        result = await run_bmp(bmp_req, strategy, current_user)
+    elif len(bmp_sig.parameters) == 2:
+        result = await run_bmp(bmp_req, current_user)
+    else:
+        result = await run_bmp(bmp_req)
 
     out_bundle = build_bundle(
         patient=bmp_req.demographics.model_dump(),

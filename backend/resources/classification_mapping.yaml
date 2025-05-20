@@ -1,0 +1,60 @@
+gravite:
+  belgique:
+    mineur: "Effet indésirable mineur sans conséquence clinique significative"
+    moderee: "Effet indésirable modéré nécessitant un traitement ou une surveillance"
+    majeure: "Effet indésirable grave pouvant mettre en danger le patient"
+  france:
+    mineur: "Effet indésirable mineur sans conséquence clinique significative"
+    moderee: "Effet indésirable modéré nécessitant un traitement ou une surveillance"
+    majeure: "Effet indésirable majeur pouvant mettre en danger la vie du patient"
+  suisse:
+    mineur: "Effet indésirable mineur sans conséquence clinique significative"
+    moderee: "Effet indésirable modéré nécessitant une prise en charge"
+    majeure: "Effet indésirable grave avec risque vital"
+plp:
+  belgique:
+    inefficacite_therapeutique: "Médicament inefficace ou dose insuffisante"
+    absence_indication: "Médicament sans indication justifiée"
+    duplication_therapeutique: "Duplication de traitement pharmacologique"
+    surdosage: "Dose trop élevée"
+    sous_dosage: "Dose trop faible"
+    interaction: "Interaction médicamenteuse"
+    non_observance: "Non-observance du traitement"
+  france:
+    inefficacite_therapeutique: "Inefficacité thérapeutique"
+    absence_indication: "Absence d'indication"
+    duplication_therapeutique: "Duplication thérapeutique"
+    surdosage: "Surdosage médicamenteux"
+    sous_dosage: "Sous-dosage médicamenteux"
+    interaction: "Interaction médicamenteuse"
+    non_observance: "Non-observance du patient"
+  suisse:
+    inefficacite_therapeutique: "Inefficacité thérapeutique"
+    absence_indication: "Absence d'indication"
+    duplication_therapeutique: "Duplication"
+    surdosage: "Surdosage médicamenteux"
+    sous_dosage: "Sous-dosage médicamenteux"
+    interaction: "Interaction médicamenteuse"
+    non_observance: "Non-observance"
+ip:
+  belgique:
+    arreter_medicament: "Arrêter le médicament"
+    ajuster_dose: "Ajuster la dose du médicament"
+    changer_medicament: "Remplacer le médicament"
+    substituer: "Substituer par alternative plus sûre"
+    ajouter_medicament: "Ajouter un médicament"
+    surveiller: "Surveiller paramètres biologiques"
+  france:
+    arreter_medicament: "Arrêter le médicament"
+    ajuster_dose: "Ajuster la posologie"
+    changer_medicament: "Changer de médicament"
+    substituer: "Substitution thérapeutique"
+    ajouter_medicament: "Ajouter un traitement"
+    surveiller: "Surveiller le patient"
+  suisse:
+    arreter_medicament: "Arrêter le médicament"
+    ajuster_dose: "Ajuster la dose"
+    changer_medicament: "Changer de médicament"
+    substituer: "Substitution"
+    ajouter_medicament: "Ajouter un médicament"
+    surveiller: "Surveiller"

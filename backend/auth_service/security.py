@@ -17,7 +17,7 @@ def hash_password(pwd: str) -> str:
     return pwd_context.hash(pwd)
 
 
-def create_access_token(subject: str) -> str:
+def create_access_token(subject: str, role: str) -> str:
     expire = datetime.now(timezone.utc) + ACCESS_TOKEN_EXPIRE
-    to_encode: Dict[str, Any] = {"sub": subject, "exp": expire}
+    to_encode: Dict[str, Any] = {"sub": subject, "exp": expire, "role": role}
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)

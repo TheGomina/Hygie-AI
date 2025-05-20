@@ -1,0 +1,80 @@
+- name: "AP001_FRA - Risque Gastro-intestinal AINS"
+  steps:
+    - id: situation
+      content: "Patient de 78 ans sous naproxène avec antécédent d’ulcère gastro-duodénal"
+    - id: logical_rule
+      content: "(age > 75) AND ('naproxene' in medications)"
+    - id: code_rule
+      content: "lambda patient: patient['age'] > 75 and 'naproxene' in patient['medications']"
+    - id: intervention
+      content: "Proposer un IPP prophylactique ou changer l’AINS"
+    - id: references
+      content: "Société Française de Gastroentérologie, 2018"
+    - id: bdc_reference
+      content: "AP001_FRA"
+    - id: template
+      content: "Modèle AINS"
+- name: "AP002_FRA - Ajustement Métformine IRA"
+  steps:
+    - id: situation
+      content: "ClCr < 60 ml/min chez patient sous Métformine"
+    - id: logical_rule
+      content: "(clcr < 60) AND ('metformine' in medications)"
+    - id: code_rule
+      content: "lambda patient: patient['clcr'] < 60 and 'metformine' in patient['medications']"
+    - id: intervention
+      content: "Réduire la dose de Métformine de 50%"
+    - id: references
+      content: "HAS, 2020"
+    - id: bdc_reference
+      content: "AP002_FRA"
+    - id: template
+      content: "Modèle IRA"
+- name: "AP003_CHE - Duplication Bêtabloquants"
+  steps:
+    - id: situation
+      content: "Patient recevant deux bêtabloquants (metoprolol et bisoprolol)"
+    - id: logical_rule
+      content: "sum([m in ['metoprolol','bisoprolol'] for m in medications]) > 1"
+    - id: code_rule
+      content: "lambda patient: sum(1 for m in patient['medications'] if m in ['metoprolol','bisoprolol']) > 1"
+    - id: intervention
+      content: "Arrêter un des deux bêtabloquants"
+    - id: references
+      content: "Swiss Journal of Cardiology, 2019"
+    - id: bdc_reference
+      content: "AP003_CHE"
+    - id: template
+      content: "Modèle Duplication"
+- name: "AP004_CHE - Charge Anticholinergique"
+  steps:
+    - id: situation
+      content: "Patient > 65 ans avec score anticholinergique > 3"
+    - id: logical_rule
+      content: "(age > 65) AND (anticholinergic_score > 3)"
+    - id: code_rule
+      content: "lambda patient: patient['age'] > 65 and patient.get('anticholinergic_score',0) > 3"
+    - id: intervention
+      content: "Évaluer la réduction des anticholinergiques"
+    - id: references
+      content: "ANAP, 2021"
+    - id: bdc_reference
+      content: "AP004_CHE"
+    - id: template
+      content: "Modèle Anticholinergiques"
+- name: "AP005_FRA - INR Instable sous AVK"
+  steps:
+    - id: situation
+      content: "Patient sous warfarine avec INR > 4"
+    - id: logical_rule
+      content: "('warfarine' in medications) AND (inr > 4)"
+    - id: code_rule
+      content: "lambda patient: 'warfarine' in patient['medications'] and patient.get('inr',0) > 4"
+    - id: intervention
+      content: "Réduire la dose de warfarine et/ou surveiller l’INR plus fréquemment"
+    - id: references
+      content: "Société Française d'Hématologie, 2017"
+    - id: bdc_reference
+      content: "AP005_FRA"
+    - id: template
+      content: "Modèle AVK"

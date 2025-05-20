@@ -20,12 +20,13 @@ jobs:
           pip install -r backend/auth_service/requirements.txt
           pip install -r backend/bmp_service/requirements.txt
       - name: Install test dependencies
-        run: pip install pytest pytest-cov
+        run: |
+          pip install pytest pytest-cov pytest-benchmark
       - name: Run tests with coverage
         run: pytest --maxfail=1 --disable-warnings -q --cov --cov-branch --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${32faca0c-fb12-478f-b368-171bc78de989}
           files: coverage.xml
           fail_ci_if_error: true

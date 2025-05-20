@@ -1,6 +1,7 @@
 from pathlib import Path
-
-from pydantic import BaseSettings
+from pathlib import Path
+from pydantic_settings import BaseSettings
+import os
 
 
 def _env_file_path() -> str:
@@ -13,7 +14,7 @@ class Settings(BaseSettings):  # Hygie-AI configuration
     version: str = "0.1.0"
     hf_api_key: str = ""
     redis_url: str = "redis://redis:6379/0"
-    llm_base_dir: Path = Path.home() / "LLM"
+    llm_base_dir: Path = Path(os.getenv("HOME", Path.home())) / "LLM"
 
     class Config:
         env_file = _env_file_path()

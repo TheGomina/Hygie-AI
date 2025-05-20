@@ -1,0 +1,16 @@
+# Template for pharmaceutical algorithm steps
+steps:
+  - id: situation
+    title: "Descriptif de la situation à risque"
+  - id: logical_rule
+    title: "Règle en langage logique"
+  - id: code_rule
+    title: "Règle en langage informatique"
+  - id: intervention
+    title: "Conduite à tenir"
+  - id: references
+    title: "Références bibliographiques"
+  - id: bdc_reference
+    title: "Référencement dans la base de connaissances"
+  - id: template
+    title: "Modèle générique d’un algorithme pharmaceutique"
