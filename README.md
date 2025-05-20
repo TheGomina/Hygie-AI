@@ -73,3 +73,46 @@ Ce projet adhère strictement aux 20 règles de développement Hygie-AI, incluan
 - Tests avec couverture minimum de 85%
 - Documentation exhaustive
 - Validation technique et clinique des algorithmes médicaux
+
+## Performance et Observabilité
+
+Le projet intègre des outils de performance et d'observabilité pour garantir un suivi précis et une optimisation continue:
+
+### Tests de performance
+
+```bash
+# Exécuter les benchmarks
+pytest tests/test_benchmarks.py -v
+
+# Lancer les profils détaillés
+pytest tests/test_profiling.py -v
+```
+
+### Métriques Prometheus
+
+L'application expose des métriques Prometheus sur l'endpoint `/metrics`, incluant:
+
+- `bmp_requests_total` - Compteur de requêtes HTTP
+- `bmp_request_processing_seconds` - Latence de traitement des requêtes
+- `bmp_csv_load_seconds` - Temps de chargement des fichiers CSV
+- `bmp_pdf_load_seconds` - Temps de traitement des fichiers PDF
+
+### Déploiement avec Helm
+
+```bash
+# Installer le chart Helm
+helm install bmp-service kubernetes/helm/bmp-service
+
+# Vérifier le déploiement
+kubectl get pods -l app.kubernetes.io/name=bmp-service
+
+# Accéder au service (port-forward)
+kubectl port-forward svc/bmp-service 8000:8000
+```
+
+Le chart Helm inclut:
+- Déploiement du service BMP avec scaling automatique
+- Configuration du ServiceMonitor pour Prometheus
+- Dashboard Grafana préconfiguré pour visualiser les métriques
+
+Pour importer le dashboard dans Grafana manuellement, utilisez le fichier JSON dans `docs/grafana/dashboard-bmp-service.json`.

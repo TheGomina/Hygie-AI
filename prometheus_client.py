@@ -23,7 +23,28 @@ REGISTRY = DummyRegistry()
 CONTENT_TYPE_LATEST = "text/plain; version=0.0.4; charset=utf-8"
 
 def generate_latest():
-    return b""
+    """Generate latest metrics in Prometheus text format."""
+    output_lines: list[str] = []
+    for metric in REGISTRY.collect():
+        # HELP and TYPE
+        output_lines.append(f"# HELP {metric.name} {metric.documentation}")
+        if isinstance(metric, Counter):
+            mtype = "counter"
+        elif isinstance(metric, Summary):
+            mtype = "summary"
+        elif isinstance(metric, Histogram):
+            mtype = "histogram"
+        else:
+            mtype = "untyped"
+        output_lines.append(f"# TYPE {metric.name} {mtype}")
+        # Samples
+        for s in metric.samples:
+            labels = ",".join(f'{k}="{v}"' for k, v in s.labels.items())
+            if labels:
+                output_lines.append(f"{s.name}{{{labels}}} {s.value}")
+            else:
+                output_lines.append(f"{s.name} {s.value}")
+    return "\n".join(output_lines).encode("utf-8")
 
 class Counter:
     def __init__(self, name, documentation, labelnames=None):
@@ -77,6 +98,7 @@ class Summary:
     def __init__(self, name, documentation):
         self.name = name
         self.documentation = documentation
+        self.samples: list[Sample] = []
         REGISTRY.register(self)
 
     def time(self):
@@ -108,22 +130,10 @@ class Histogram:
         return self
 
     def time(self):
-        class ContextManager:
-            def __enter__(inner_self):
-                pass
-
-            def __exit__(inner_self, exc_type, exc_value, traceback):
-                key = tuple(sorted(self._labels.items()))
-                self.counts[key] = self.counts.get(key, 0) + 1
-                sample = Sample(self.name + '_count', self._labels, self.counts[key])
-                # ------------------------------------------------------------------
-                # Preserve counts for other label sets instead of overwriting the
-                # whole sample list. Update in place if the sample already exists.
-                # ------------------------------------------------------------------
-                for s in self.samples:
-                    if s.labels == self._labels:
-                        s.value = self.counts[key]
-                        break
-                else:
-                    self.samples.append(sample)
-        return ContextManager()
+        """Decorator for timing functions (stub)."""
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                # Call the function; no timing recorded in stub
+                return func(*args, **kwargs)
+            return wrapper
+        return decorator

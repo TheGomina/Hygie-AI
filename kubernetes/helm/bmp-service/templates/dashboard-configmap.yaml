@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "bmp-service.fullname" . }}-dashboard
+  labels:
+    grafana_dashboard: "1"
+    app.kubernetes.io/instance: {{ .Release.Name }}
+data:
+  dashboard-bmp-service.json: |-
+    {{- (.Files.Get "../../docs/grafana/dashboard-bmp-service.json") | nindent 4 }}

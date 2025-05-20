@@ -21,7 +21,9 @@ jobs:
           pip install -r backend/bmp_service/requirements.txt
       - name: Install test dependencies
         run: |
-          pip install pytest pytest-cov pytest-benchmark
+          pip install pytest pytest-cov pytest-benchmark prometheus-client
+      - name: Run metrics tests
+        run: pytest tests/test_metrics.py -q
       - name: Run tests with coverage
         run: pytest --maxfail=1 --disable-warnings -q --cov --cov-branch --cov-report=xml
       - name: Upload coverage to Codecov

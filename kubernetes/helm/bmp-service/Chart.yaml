@@ -1,0 +1,6 @@
+apiVersion: v2
+name: bmp-service
+description: Helm chart for deploying the Hygie-AI BMP Service
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

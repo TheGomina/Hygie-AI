@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Dict, Tuple, Iterable
 
 from pdfminer.high_level import extract_text  # type: ignore
+from prometheus_client import Histogram
 
 _RES = Path(__file__).resolve().parents[2] / "resources"
 
@@ -24,11 +25,19 @@ _PAIR_RE = re.compile(
     r"^(?P<a>[A-ZÀÂÉÈÊÎÔÙÛÇ\- ]+)\s*/\s*(?P<b>[A-ZÀÂÉÈÊÎÔÙÛÇ\- ]+)", re.I
 )
 
+CSV_LOAD_TIME = Histogram(
+    "bmp_csv_load_seconds", "Time spent loading CSV interactions"
+)
+PDF_LOAD_TIME = Histogram(
+    "bmp_pdf_load_seconds", "Time spent loading PDF interactions"
+)
+
 
 def _order(a: str, b: str) -> Tuple[str, str]:  # noqa: D401
     return tuple(sorted((a.upper(), b.upper())))  # type: ignore[return-value]
 
 
+@CSV_LOAD_TIME.time()
 def _load_from_csv(fp: Path) -> Dict[Tuple[str, str], str]:
     """Load ANSM interactions from CSV, filtering gravities C/D (≈clinically
     significatives).  The parser adapts to the file size to minimise latency.
@@ -91,6 +100,7 @@ def _load_from_csv(fp: Path) -> Dict[Tuple[str, str], str]:
     return mapping
 
 
+@PDF_LOAD_TIME.time()
 def _load_from_pdf(fp: Path) -> Dict[Tuple[str, str], str]:  # noqa: D401
     mapping: Dict[Tuple[str, str], str] = {}
     try:
